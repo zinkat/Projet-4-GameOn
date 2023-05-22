@@ -36,16 +36,23 @@ function closeModal() {
 // closeSpan.onclick = function (){
 //   modalbg.style.display = "none";
 // }
+
+//déactiver le bouton
 const submitBtn = document.getElementById("submit");
 // if(submitBtn.disabled = true ){
 //   submitBtn.style.backgroundColor = "gray";
 // }
-const form = document.querySelector(".form");
+
+//style bordure
+const inputInvalid = document.getElementsByClassName("text-control");
+
+
+const form = document.querySelector("form");
 const firstName = document.getElementById("first");
 const lastName = document.getElementById("last");
-const email = document.getElementById("email");
-const dateOfBirth = document.getElementById("birthdate");
-const inputInvalid = document.getElementsByClassName("text-control");
+
+
+
 
 //vérification prenom.
 const NameReg = /^[A-zA-ZéèêîïÉÈÊÏÎ][a-zéèêàçîï]+([-'\s][a-zA-ZéèêîïÉÈÊÏÎ][a-zéèêàçîï]+)?/;
@@ -63,9 +70,13 @@ firstName.addEventListener('blur', function(e) {
 
   }else{errorMessageF.textContent="";
    inputInvalid[0].style.border = "2px solid green";
+   
   };
+
   })
+  
 function nameValidator (e) {
+  let valid = false;
   if(firstName.validity.valueMissing) {
     errorMessageF.textContent = "N'oublier pas de saisir 2 caractères ou plus pour le champ du prénom";
     inputInvalid[0].style.border = "2px solid red";
@@ -76,8 +87,13 @@ function nameValidator (e) {
     errorMessageF.textContent = "Format incorrect";
     inputInvalid[0].style.border = "2px solid red";
     e.preventDefault();
-  };
+  }
+  else {
+    valid = true;
+  }
+  return valid;
 };
+
 //validation last name
 const NameRegL = /^([a-zA-Z ]+)$/;
 submitBtn.addEventListener('click', nameValidatorL);
@@ -112,7 +128,9 @@ function nameValidatorL (e) {
   } 
 };
 
-//validation adresse mail
+//validation email adresse
+
+const email = document.getElementById("email");
 let mailInvalid = document.querySelector(".mail-valid");
 let emailRegex = /^([a-z A-Z 0-9\.-]+)@([a-z A-Z 0-9]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
 submitBtn.addEventListener('click', emailValidator)
@@ -130,21 +148,58 @@ else{
 };
 };
 
-// validation date de naissance 
+  
 
+///validation birthdate 
+
+const dateOfBirth = document.getElementById("birthdate");
 submitBtn.addEventListener('click',birthValidator);
 let birthValid = document.querySelector(".birth-valid");
 dateOfBirth.addEventListener('blur', birthValidator );
 function birthValidator (e){
+
 if(dateOfBirth.validity.valueMissing) {
     birthValid.textContent = "Vous devez entrer votre date de naissance";
     inputInvalid[3].style.border = "2px solid red";
     e.preventDefault();
-  }else{
-    birthValid.textContent = "";
-    inputInvalid[3].style.border = "2px solid green";
+  }else {
+    
+    let dateBirth = dateOfBirth.value;
+    console.log(dateBirth);
+    var arrdateBirth = dateBirth.split("-")
+    var yearOfBirth=arrdateBirth[0];
+    console.log(arrdateBirth);
+    var monthOfBirth=arrdateBirth[1];
+    var dayOfBirth=arrdateBirth[2];
+    //console.log(yearOfBirth);
+    //console.log(monthOfBirth);
+    //console.log(dayOfBirth);
+    var today = new Date()
+    var age = today.getFullYear() - yearOfBirth;
+    console.log(age,today.getFullYear(),yearOfBirth);
+    if (today.getMonth()+1 < monthOfBirth || (today.getMonth()+1 == monthOfBirth && today.getDate() < dayOfBirth ) ){
+      age--;
+    }
+
+    console.log(age);
+    console.log(today.getMonth()+1 < monthOfBirth);
+  
+    if (age >= 16){
+      birthValid.textContent = "";
+      inputInvalid[3].style.border = "2px solid green";
+    }
+    else {
+    birthValid.textContent = "Compétition reservée à l'âge de 16 ans et plus";
+    inputInvalid[3].style.border = "2px solid red";
+    e.preventDefault();
+    }
+    
   };
 };
+
+//////
+
+
 ///nombre de tournois 
 const quantityGame = document.getElementById("quantity");
 submitBtn.addEventListener('click',verifyQuantity);
@@ -165,11 +220,10 @@ function verifyQuantity() {
     quantityNumber.textContent = "la valeur doit etre entre 0 et 99";
     inputInvalid[4].style.border = "2px solid red"
   }
- 
-  // else  {
-  //   quantityNumber.textContent = "";
-  //   inputInvalid[4].style.border = "2px solid green"
-  // }; 
+  else  {
+    quantityNumber.textContent = "";
+    inputInvalid[4].style.border = "2px solid green"
+  }; 
 };
 
 //choix option location
@@ -180,6 +234,7 @@ const messageLocation = document.querySelector(".locationMsg");
 
 function choiceLocation(e){
 let valid = false;
+
   for (let i = 0; i < locationOptions.length; i++){
    
    if(locationOptions[i].checked) {
@@ -190,11 +245,10 @@ let valid = false;
 
   if(valid){
     messageLocation.textContent = "";
-
   }
   else{ 
-  messageLocation.textContent = "Vous devez choisir une option.";
-  e.preventDefault();
+   messageLocation.textContent = "Vous devez choisir une option.";
+    e.preventDefault();
   }
 };
 
@@ -203,7 +257,6 @@ let valid = false;
 submitBtn.addEventListener('click', validatorCondition);
 const chekCondition = document.querySelector(".condition");
 const messageCondition = document.querySelector(".conditionMsg");
-//console.log(chekCondition);
 
 function validatorCondition(e){
 
@@ -216,16 +269,110 @@ if(chekCondition.checked){
 }
 };
 
+//message confirmation
 
-                   ////////////////////////////////////////////////////////////
-const modalMsg =document.querySelector(".valid-btn");
 const inscriModal = document.querySelector(".container");
 const btnConfirme= document.querySelector(".btnConfirme");
+ submitBtn.addEventListener('click',showMsg);
 
+function showMsg(){
+ 
+  inscriModal.style.display = "block";
+
+
+};
+btnConfirme.addEventListener("click", hideModal);
+
+function hideModal(){
+  inscriModal.style.display = "none"
+
+
+};
+
+////////////////////////////////////////////////////////////::::::::::::::::
+              // const inscriModal = document.querySelector(".container");
+              // const btnConfirme= document.querySelector(".btnConfirme");
+
+              // form.addEventListener ('submit', submitForm)
+
+              // function submitForm(){
+              //   var valueName = document.getElementById("first").value;
+              //   //console.log("avant "+ resultFname)
+              //   let result = false
+              //   if ( valueName !== ""){ 
+              //       result = true;
+              //       // delete localStorage.firstName;
+              //   }else{
+              //     result = false;
+              //   }
+
+              //   localStorage.setItem('result', result)
+
+              // }
+
+              // var result = localStorage.getItem('result');
+              // console.log(result);
+
+              // function showSubmitMsg(e){
+              //   showModal();
+              //   function showModal(){
+              //     inscriModal.style.display = "block";
+              //     }
+
+              // }
+              // //console.log(localStorage.getItem('firstname'));
+
+              // if (localStorage.getItem('result')){
+              //   console.log(localStorage.getItem('result'));
+              //   delete localStorage.result;
+              //   showSubmitMsg();
+              // }
+
+              // btnConfirme.addEventListener("click", hideModal);
+
+              // function hideModal(){
+              //   inscriModal.style.display = "none";
+
+              // }
+
+// //////////////////::::::::::::::::::::::::::::::::::
+
+// function getElemenvalue(){
+//   var value = document.getElementById("first").value;
+//   console.log(value);
+// }
+// getElemenvalue();
+
+// let nameValid = nameValidator();
+// let formValid = nameValid;
+// let checkform = false;
+
+
+// if (formValid){
+//   //modalbg.style.display = "contents";
+//   //modalbg.style.display = "none";
+//   inscriModal.style.display = "block";
+//   //HTMLFormElement.prototype.submit.call(form);
+  
+//   checkform = true;
+// }
+// else {
+//   checkform = false;
+// }
+
+
+// console.log(checkform)
+
+// if (checkform){
+//     inscriModal.style.display = "block";
+//     //HTMLFormElement.prototype.submit.call(form);
+//     //inscriModal.style.display = 'block';
+//     checkform = false;
+// }
 
 // let input = document.getElementsByClassName("text-control").value;
 // input.addEventListener("", checkValue);
-//chekCondition.addEventListener('change',checkValue)
+// chekCondition.addEventListener('change',checkValue)
 
 // function checkValue(){
   
@@ -252,30 +399,6 @@ const btnConfirme= document.querySelector(".btnConfirme");
   
 //   }
 
-//  submitBtn.disabled = false;
-//}
-
- submitBtn.addEventListener('click',showMsg);
-
-function showMsg(){
- 
-  inscriModal.style.display = "block";
-  alert(coucou)
-
-};
-
-btnConfirme.addEventListener("click", hideModal);
-
-function hideModal(){
-  inscriModal.style.display = "none"
-}
-
-// };
-
-
-
-
-
-
+////////////////////////////////////:::::::::
 
 
