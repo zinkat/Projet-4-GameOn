@@ -437,7 +437,7 @@ input[data-error]::after {
   z-index: 1;
 }
 .hero-headline {
-  font-size: 5.5rem;
+  font-size: 5rem;
   font-weight: normal;
   white-space: nowrap;
 }
@@ -496,7 +496,7 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 4rem;
     white-space: normal;
   }
   .hero-text {
@@ -532,7 +532,7 @@ footer {
 /* Mon css */
 
 .error-msg, .mail-valid, .birth-valid, .error-msg-last, .quantityNumber, .locationMsg, .conditionMsg{
-  color: red;
+  color: #e54858;
   font-size: 16px;
 }
 @keyframes modalmsg {
