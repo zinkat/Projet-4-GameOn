@@ -32,7 +32,7 @@ img {
 
 .topnav {
   overflow: hidden;
-  margin: 3.5%;
+  margin: 2.5%;
 }
 .header-logo {
     float: left;
@@ -97,7 +97,7 @@ img {
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
+    /* margin-top: -15px; */
   }
 
   .hero-headline {
@@ -411,7 +411,7 @@ input[data-error]::after {
   font-size: 16px;
 }
 .hero-section {
-  min-height: 93vh;
+  /*min-height: 93vh;*/
   border-radius: 10px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -518,7 +518,7 @@ footer {
     padding: 12px 35px;
   }
   .copyrights {
-    margin-top: 50px;
+    margin-top: 30px;
     text-align: center;
   }
   .topnav.responsive {position: relative;}
@@ -550,7 +550,12 @@ footer {
     text-align: left;
   }
 
+  
+.topnav .icon {
+color: red;
 }
+} 
+
 
 @keyframes modalopen {
   from {
