@@ -101,7 +101,11 @@ img {
   }
 
   .hero-headline {
-    font-size: 3rem !important;
+    font-size: 2.5rem !important;
+  }
+  .hero-text{
+    font-size: 1.2rem !important;
+    margin-top: 25px !important;
   }
 } 
 
@@ -175,7 +179,7 @@ main {
 
 .content {
   margin: 5% auto;
-  margin-top: 2%;
+  margin-top: 1.5%;
   width: 100%;
   max-width: 500px;
   animation-name: modalopen;
@@ -550,7 +554,6 @@ footer {
     text-align: left;
   }
 
-  
 .topnav .icon {
 color: red;
 }
@@ -601,7 +604,7 @@ color: red;
 
 .confirmation {
   margin: 5% auto;
-  margin-top: 2%;
+  margin-top: 3.5%;
   width: 100%;
   height: 90%;
   max-width: 500px;
@@ -613,6 +616,7 @@ color: red;
   position: relative;
   color: #fff;
   padding: 150px 50px 0px 50px;
+  word-spacing: none;
 }
 
 .btnConfirme{
