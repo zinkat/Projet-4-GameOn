@@ -615,11 +615,13 @@ color: red;
   overflow: hidden;
   position: relative;
   color: #fff;
-  padding: 150px 50px 0px 50px;
+  text-align: center;
+  padding: 10% 5% 5% 5%;
   word-spacing: none;
 }
 
 .btnConfirme{
-  margin-top: 60%;
+  margin-top: 70%;
+  margin-bottom: 5%;
 }
 

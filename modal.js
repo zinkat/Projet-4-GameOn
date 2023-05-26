@@ -15,7 +15,6 @@ const closeSpan = document.querySelector(".close");
 const submitBtn = document.getElementById("submit");
 const inputInvalid = document.getElementsByClassName("text-control"); //style bordure input
 
-
 //********************************* launch modal form event******************************************//
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 function launchModal() {
@@ -39,7 +38,7 @@ function nameValidator(e) {
   let validprenom = false;
 
   if(firstName.value == "") {
-    errorMessageF.textContent = "N'oublier pas de saisir 2 caractères ou plus pour le champ du prénom";
+    errorMessageF.textContent = "N'oubliez pas de saisir 2 caractères ou plus pour le champ du prénom";
     inputInvalid[0].style.border = "2px solid #e54858";
     validprenom = false;
   }
@@ -73,7 +72,7 @@ lastName.addEventListener('blur',nameValidatorL)
 let validnom = false;
 function nameValidatorL(e) {
   if(lastName.value == "") {
-    errorMessageL.textContent = "N'oublier pas de saisir 2 caractères ou plus pour le champ du nom";
+    errorMessageL.textContent = "N'oubliez pas de saisir 2 caractères ou plus pour le champ du nom";
     inputInvalid[1].style.border = "2px solid #e54858";
     e.preventDefault();
     validnom = false
@@ -109,7 +108,7 @@ email.addEventListener('blur', emailValidator);
 let validmail = false;
 function emailValidator (e){
 if(emailRegex.test(email.value)== false) {
-  mailInvalid.textContent = "Veillez saisir une adresse mail valide";
+  mailInvalid.textContent = "Veuillez saisir une adresse mail valide";
   inputInvalid[2].style.border = "2px solid #e54858";
   e.preventDefault();
   validmail = false;
@@ -140,16 +139,16 @@ if(dateOfBirth.validity.valueMissing) {
   }else {
     let dateBirth = dateOfBirth.value;
     //console.log(dateBirth);
-    var arrdateBirth = dateBirth.split("-")
-    var yearOfBirth=arrdateBirth[0];
+    let arrdateBirth = dateBirth.split("-")
+    let yearOfBirth=arrdateBirth[0];
     //console.log(arrdateBirth);
-    var monthOfBirth=arrdateBirth[1];
-    var dayOfBirth=arrdateBirth[2];
+    let monthOfBirth=arrdateBirth[1];
+    let dayOfBirth=arrdateBirth[2];
     //console.log(yearOfBirth);
     //console.log(monthOfBirth);
     //console.log(dayOfBirth);
-    var today = new Date()
-    var age = today.getFullYear() - yearOfBirth;
+    let today = new Date()
+    let age = today.getFullYear() - yearOfBirth;
     //console.log(age,today.getFullYear(),yearOfBirth);
     if (today.getMonth()+1 < monthOfBirth || (today.getMonth()+1 == monthOfBirth && today.getDate() < dayOfBirth ) ){
       age--;
@@ -162,7 +161,7 @@ if(dateOfBirth.validity.valueMissing) {
       anniv = true;
     }
     else {
-      birthValid.textContent = "Compétition reservée à l'âge de 16 ans et plus";
+      birthValid.textContent = "Compétition réservée à l'âge de 16 ans et plus";
       inputInvalid[3].style.border = "2px solid #e54858";
       e.preventDefault();
       anniv = false;
@@ -187,7 +186,7 @@ function verifyQuantity(e) {
     tournoisNbr = false;
   }
   else if ( quantityGame.value >= 100 || quantityGame.value < 0 ) {
-    quantityNumber.textContent = "la valeur doit etre entre 0 et 99";
+    quantityNumber.textContent = "La valeur doit être entre 0 et 99";
     inputInvalid[4].style.border = "2px solid #e54858"
     e.preventDefault();
     tournoisNbr = false;
@@ -204,6 +203,7 @@ function verifyQuantity(e) {
 
 //*****************************************choix option location*******************************//
 const locationOptions = document.querySelectorAll(".city");
+//console.log(`${locationOptions}`);
 const messageLocation = document.querySelector(".locationMsg");
 const hidMsg = document.querySelector(".delMsg");
 submitBtn.addEventListener('click', choiceLocation);
@@ -212,21 +212,25 @@ hidMsg.addEventListener("change",choiceLocation);
 let valid = false;
 function choiceLocation(e){
   for (let i = 0; i < locationOptions.length; i++){
-   
+   //console.log(locationOptions.length);
+   //console.log(`loop ${i}`);
     if(locationOptions[i].checked) {
       valid = true;
+      //console.log((locationOptions[i].checked));
       break;
     }  
   };
     if(valid){
       messageLocation.textContent = ""
-      valid = true;
+      valid == true;
     }
     else{ 
     messageLocation.textContent = "Vous devez choisir une option.";
     e.preventDefault();
     valid = false;
+
     }
+   // console.log((valid))
   return valid 
 };
 
@@ -267,34 +271,36 @@ function enableBtn() {
 };
 
 //*****************************************envoi formulaire et stockage $ ********************************//
-submitBtn.addEventListener ('click', submitForm);
-function submitForm(){
+const form =document.getElementById('form')
+form.addEventListener ('submit', submitForm);
+function submitForm(e){
   let result = false
   if ( nameValidator() && nameValidatorL() && emailValidator () && birthValidator () && verifyQuantity() && choiceLocation() && validatorCondition()){ 
     result = true;
     //delete localStorage.firstName;
   }else{
     result = false;
+    e.preventDefault();
   }
-  localStorage.setItem('result', result)
+  localStorage.setItem('result', result) 
 };
 
 // ********************************affichage message de confirmation******************************//
 const inscriModal = document.querySelector(".container");
 var result = localStorage.getItem('result');
-   //console.log("result " + result);
+   console.log("result " + result);
 function showSubmitMsg(){
   showModal();
   function showModal(){
     inscriModal.style.display = "block";
   }
 }
-   //console.log(localStorage.getItem('firstname'));
+ 
 if (localStorage.getItem('result')){
     //console.log(localStorage.getItem('result'));
   delete localStorage.result;
+
   showSubmitMsg();
-  //setTimeout('showSubmitMsg()',200)
 };
 
 // ********************************close modal showSubmitMsg******************************//
@@ -306,3 +312,4 @@ closeSpanMsg.addEventListener("click", hideModal);
 function hideModal(){
   inscriModal.style.display = "none";
 };
+/////////******************************************************************************* */
