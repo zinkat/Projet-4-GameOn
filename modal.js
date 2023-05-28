@@ -5,8 +5,7 @@ function editNav() {
   } else {
     x.className = "topnav";
   }
-}
-
+};
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
@@ -125,6 +124,7 @@ return validmail;
 
 //****************************************validation birthdate  *******************************//
 const dateOfBirth = document.getElementById("birthdate");
+//console.log(typeof(dateOfBirth.value) ); //STRING
 let birthValid = document.querySelector(".birth-valid");
 submitBtn.addEventListener('click',birthValidator);
 dateOfBirth.addEventListener('blur', birthValidator );
@@ -171,7 +171,7 @@ if(dateOfBirth.validity.valueMissing) {
   return anniv;
 };
 
-//*****************************************nombre de tournois *******************************//
+//*****************************************     nombre de tournois *******************************//
 const quantityGame = document.getElementById("quantity");
 let quantityNumber = document.querySelector(".quantityNumber");
 submitBtn.addEventListener('click',verifyQuantity);
@@ -270,37 +270,35 @@ function enableBtn() {
   }
 };
 
-//*****************************************envoi formulaire et stockage $ ********************************//
+//*****************************************envoi formulaire ********************************//
 const form =document.getElementById('form')
 form.addEventListener ('submit', submitForm);
 function submitForm(e){
   let result = false
   if ( nameValidator() && nameValidatorL() && emailValidator () && birthValidator () && verifyQuantity() && choiceLocation() && validatorCondition()){ 
     result = true;
-    //delete localStorage.firstName;
+
   }else{
     result = false;
     e.preventDefault();
+  
   }
+
   localStorage.setItem('result', result) 
 };
 
 // ********************************affichage message de confirmation******************************//
 const inscriModal = document.querySelector(".container");
 var result = localStorage.getItem('result');
-   console.log("result " + result);
-function showSubmitMsg(){
-  showModal();
-  function showModal(){
+  // console.log("result " + result);
+function showModalMsg(){
     inscriModal.style.display = "block";
-  }
 }
- 
-if (localStorage.getItem('result')){
-    //console.log(localStorage.getItem('result'));
-  delete localStorage.result;
 
-  showSubmitMsg();
+if (result){
+    //console.log(result);
+  delete localStorage.result;
+  showModalMsg();
 };
 
 // ********************************close modal showSubmitMsg******************************//

@@ -217,7 +217,7 @@ input {
   font-size: 20px;
   height: 48px;
 }
-.formData[data-error]::after {
+/* .formData[data-error]::after {
   content: attr(data-error);
   font-size: 0.4em;
   color: #e54858;
@@ -234,7 +234,7 @@ input {
 }
 .formData[data-error-visible="true"] .text-control {
   border: 2px solid #e54858;
-}
+} */
 /* 
 input[data-error]::after {
     content: attr(data-error);
@@ -573,7 +573,7 @@ color: red;
 
 /* Mon css */
 
-
+/* style message erreur*/
 .error-msg, .mail-valid, .birth-valid, .error-msg-last, .quantityNumber, .locationMsg, .conditionMsg{
   color: #e54858;
   font-size: 16px;
@@ -617,7 +617,7 @@ color: red;
   color: #fff;
   text-align: center;
   padding: 10% 5% 5% 5%;
-  word-spacing: none;
+
 }
 
 .btnConfirme{
