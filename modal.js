@@ -1,7 +1,7 @@
 function editNav() {
   var x = document.getElementById("myTopnav");
-  if (x.className === "topnav") {
-    x.className += " responsive";
+  if(x.className === "topnav") {
+   x.className += " responsive";
   } else {
     x.className = "topnav";
   }
@@ -9,7 +9,6 @@ function editNav() {
 // DOM Elements
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
-const formData = document.querySelectorAll(".formData");
 const closeSpan = document.querySelector(".close");
 const submitBtn = document.getElementById("submit");
 const inputInvalid = document.getElementsByClassName("text-control"); //style bordure input
@@ -185,13 +184,13 @@ function verifyQuantity(e) {
     e.preventDefault();
     tournoisNbr = false;
   }
-  else if ( quantityGame.value >= 100 || quantityGame.value < 0 ) {
+  else if (quantityGame.value-1 >= 99 || quantityGame.value < 0) {
     quantityNumber.textContent = "La valeur doit être entre 0 et 99";
     inputInvalid[4].style.border = "2px solid #e54858"
     e.preventDefault();
     tournoisNbr = false;
   }
- else if (quantityGame.value <= 100 && quantityGame.value >= 0) { 
+ else if (quantityGame.value-1 <= 99 && quantityGame.value >= 0) { 
     quantityNumber.textContent = "";
     inputInvalid[4].style.border = "2px solid #279e7a"
     tournoisNbr = true;
@@ -213,7 +212,7 @@ let valid = false;
 function choiceLocation(e){
   for (let i = 0; i < locationOptions.length; i++){
    //console.log(locationOptions.length);
-   //console.log(`loop ${i}`);
+  //console.log(`loop ${i}`);
     if(locationOptions[i].checked) {
       valid = true;
       //console.log((locationOptions[i].checked));
